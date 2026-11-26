@@ -1,466 +1,162 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Star, Users, Award, Zap, ExternalLink, CheckCircle, HelpCircle } from "lucide-react" // Added HelpCircle for default icon
-import { Badge } from "@/components/ui/badge"
-import React from "react";
-import { Metadata } from 'next'
+import type { Metadata } from "next"
+import { Bricolage_Grotesque } from "next/font/google"
+import { ArrowUpRight, Check } from "lucide-react"
 
+// Homepage redesign (27 Nov 2026). Only real work and real terms: Otiva (live hotel platform) and Entry Club (live
+// site). No invented clients, testimonials or metrics.
+const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "700", "800"], display: "swap" })
 
+export const metadata: Metadata = {
+  title: "Zenbourg | Custom websites and web apps, built fast",
+  description:
+    "Next.js websites, admin panels and custom web apps from Indore, India. We built Otiva, a live hotel management platform. Fixed price, direct invoice, source code yours.",
+}
 
+const BOOK = "https://calendar.app.google/PiJbdqC2qc4AWoQ78"
 
-const projects = [
-  {
-    id: "1",
-    title: " Rebel Sport",
-    description: "Enhanced customer engagement and streamlined purchase process",
-    image_url: "./projects/image11.png",
-    live_url: "https://help.rebelsport.co.nz/hc/en-nz",
-    domain: "Sports E-commerce",
-    completed_date_text: "July 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", "jQuery UI", "Font Awesome", "Salesforce Commerce Cloud", "PHP", "Google Maps API", "PayPal API"],
-    features: ["User authentication", "Payment integration", "Admin dashboard"],
-    metrics: { users: "5k+", sales: "$120k", rating: "4.8/5" },
-    reviews: []
-    //   {
-    //     id: "r1",
-    //     reviewer_name: "Alice Johnson",
-    //     reviewer_role: "CEO, RetailX",
-    //     reviewer_avatar_url: "/placeholder.svg?height=40&width=40&text=A",
-    //     rating: 5,
-    //     review_text: "Amazing work! Delivered on time and exceeded expectations.",
-    //     review_date_text: "Aug 2024"
-    //   }
-    // ]
-  },
-  {
-    id: "2",
-    title: "The Wellness Shop",
-    description: "Responsive, wellness-focused colour scheme Simple checkout flow ",
-    image_url: "./projects/image12.png",
-    live_url: "https://www.thewellnessshop.in/",
-    domain: "Health & Beauty",
-    completed_date_text: "June 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", "jQuery UI", "Font Awesome", "Shopify APIs ", "Google Analytics",],
-    features: ["Responsive design", "SEO optimized", "Contact form"],
-    metrics: { visitors: "10k+", leads: "500+", rating: "4.9/5" },
-    reviews: []
-  },
-  {
-    id: "3",
-    title: "CAPREIT",
-    description: "Intuitive property search  functionality Clear tenant resource navigation  ",
-    image_url: "./projects/image13.png",
-    live_url: " https://www.capreit.ca/",
-    domain: "Real-estate",
-    completed_date_text: "June 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", "jQuery UI", "MySQL", "Node ", "Google Analytics",],
-    features: ["Responsive design", "SEO optimized", "Contact form"],
-    metrics: { visitors: "10k+", leads: "500+", rating: "4.9/5" },
-    reviews: []
-  },
-  {
-    id: "4",
-    title: "Delight Foods",
-    description: "Responsive, wellness-focused colour scheme Simple checkout flow ",
-    image_url: "./projects/image14.png",
-    live_url: "https://www.delightfoods.com/",
-    domain: "Gourmet E-commerce",
-    completed_date_text: "June 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", "AWS services", "Font Awesome", "Amazon API Gateway ", "Google Analytics",],
-    features: ["Responsive design", "SEO optimized", "Contact form"],
-    metrics: { visitors: "10k+", leads: "500+", rating: "4.9/5" },
-    reviews: []
-  },
-  {
-    id: "5",
-    title: "Brikitt",
-    description: "Minimalistic product presentation Smooth navigation",
-    image_url: "./projects/image15.png",
-    live_url: "https://www.brikitt.com/",
-    domain: "E-commerce/Service",
-    completed_date_text: "June 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", "jQuery UI", "Font Awesome", "WordPress (PHP, MySQL) ", "Google Analytics",],
-    features: ["Responsive design", "SEO optimized", "Contact form"],
-    metrics: { visitors: "10k+", leads: "500+", rating: "4.9/5" },
-    reviews: []
-
-  },
-  {
-    id: "6",
-    title: "Experion ",
-    description: "Premium visual style to reflect luxury projects Easy access to project details",
-    image_url: "./projects/image16.png",
-    live_url: "https://www.experion.co/",
-    domain: "Real Estate Developer",
-    completed_date_text: "June 2024",
-    technologies: [" HTML5", "JavaScript", "jQuery", " Modernizr", "Font Awesome", "ASP.NET (.NET framework) ", "Google Analytics",],
-    features: ["Responsive design", "SEO optimized", "Contact form"],
-    metrics: { visitors: "10k+", leads: "500+", rating: "4.9/5" },
-    reviews: []
-  }
+const packages = [
+  { name: "Website", usd: "$150", inr: "₹9,999", time: "about 5 days", points: ["Up to 5 pages, mobile first", "Contact or enquiry form", "Basic SEO, fast hosting setup"] },
+  { name: "Website + admin", usd: "$350", inr: "on request", time: "about 10 days", points: ["Up to 10 pages", "Admin panel: you edit content yourself", "Booking or enquiry flow, SEO"] },
+  { name: "Custom web app", usd: "$750", inr: "on request", time: "about 20 days", points: ["Login and user roles", "Dashboard with your data", "Payments integration"] },
 ]
 
+const terms = [
+  ["Fixed price", "You know the full cost before we start. No hourly meter."],
+  ["50% to start", "Half in advance, the rest when it is live and you are happy."],
+  ["Direct invoice", "Bank transfer or UPI in India, Wise or PayPal abroad. No platform fees in the middle."],
+  ["Your code", "The repository and every account are in your name from day one."],
+]
 
-export const metadata = {
-  title: 'My App',
-  icons: {
-    icon: './icons/x-logo.png',
-  },
-}
-// Import data fetching functions and types
-import {
-  getHomePageFeatures,
-  getHomePageTestimonials,
-  getHomePageServices,
-  getHomePageProjects,
-} from "@/lib/data/home-page-data"
-import type { HomePageFeature, HomePageTestimonial, HomePageService, HomePageProject } from "@/types/home-page"
-import type { LucideIcon, LucideProps } from "lucide-react"
-import CursorFollower from "@/components/CursorFollower"
-import Head from "next/head"
-
-// Helper to map icon names to Lucide components
-const iconMap: Record<string, LucideIcon> = {
-  Zap: Zap,
-  Users: Users,
-  Award: Award,
-  Default: HelpCircle, // Default icon if not found
-}
-
-const FeatureIcon = ({ name, ...props }: { name: string } & LucideProps) => {
-  const IconComponent = iconMap[name] || iconMap.Default
-  return <IconComponent {...props} />
-}
-
-// Make the component async to fetch data
-export default async function HomePage() {
-  // Fetch data in parallel
-  const [featuresData, testimonialsData, servicesData, projectsData] = await Promise.all([
-    getHomePageFeatures(),
-    getHomePageTestimonials(),
-    getHomePageServices(),
-    getHomePageProjects(),
-  ])
-
-  // Use fetched data or provide empty arrays as fallbacks
-  const features: HomePageFeature[] = featuresData || []
-  const testimonials: HomePageTestimonial[] = testimonialsData || []
-  const homeServices: HomePageService[] = servicesData || []
-  const homeProjects: HomePageProject[] = projectsData || []
-
+export default function HomePage() {
   return (
-    <>
+    <main className="bg-[#0d0f12] text-[#f1f2f4]">
+      {/* Hero: the claim, then the proof (a real screen from a product we run in production) */}
+      <section className="mx-auto max-w-6xl px-5 pb-16 pt-28 md:px-8 md:pt-36">
+        <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#8b929c]">Zenbourg · Indore, India</p>
+        <h1 className={`${display.className} mt-5 max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tight md:text-7xl`}>
+          We build the software a business <span style={{ color: "#e2541c" }}>actually runs on.</span>
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a9b2] md:text-xl">
+          Websites, admin panels and custom web apps in Next.js. Our own product, Otiva, runs hotels every day:
+          bookings, inventory, procurement and finance in one system.
+        </p>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <a href={BOOK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-[#e2541c] px-6 py-4 font-semibold text-[#0d0f12] transition hover:bg-[#f06a33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e2541c]">
+            Book a 20-minute call <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a href="#pricing" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-6 py-4 font-semibold transition hover:border-white/60">
+            See prices
+          </a>
+        </div>
+        <div className="relative mt-14 overflow-hidden rounded-2xl border border-white/10 bg-[#1a1d22] shadow-[0_40px_80px_-30px_rgba(20,22,26,0.45)]">
+          <div className="flex h-10 items-center gap-2 px-4">
+            <span className="h-3 w-3 rounded-full bg-[#3a3f47]" /><span className="h-3 w-3 rounded-full bg-[#3a3f47]" /><span className="h-3 w-3 rounded-full bg-[#3a3f47]" />
+            <span className="ml-4 rounded-md bg-[#262a31] px-3 py-1 font-mono text-xs text-[#8b929c]">otiva.in/admin/bookings</span>
+          </div>
+          <Image src="/work/otiva-booking.jpg" alt="Otiva booking screen: room, meal plan and total on one screen" width={1600} height={715} priority className="h-auto w-full" />
+        </div>
+      </section>
 
-      <div className="min-h-screen  ">
-
-        {/* Hero Section (remains static as per current design, or can be made dynamic too) */}
-        <section className="hero-section relative bg-gradient-to-br from-blue-50 to-indigo-100 py-12 sm:py-16 lg:py-20 ">
-          <div className=" relative z-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
-                  Premium Business Services for
-                  <span className="text-blue-600 dark:text-blue-400 block sm:inline"> Modern Companies</span>
-                </h1>
-                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-                  From web development to digital marketing, we provide comprehensive solutions to help your business grow
-                  and succeed in the digital age.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="text-base sm:text-lg px-6 sm:px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <Link href="/services">
-                      View Our Services
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="text-base sm:text-lg px-6 sm:px-8 py-3 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                  >
-                    <Link href="/book">Book Free Consultation</Link>
-                  </Button>
+      {/* Work: real, live projects only */}
+      <section id="work" className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8">
+          <h2 className={`${display.className} text-3xl font-bold tracking-tight md:text-5xl`}>Work you can open right now</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-5">
+            <a href="https://otiva.in" target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-2xl border border-white/10 bg-[#16191e] md:col-span-3">
+              <Image src="/work/otiva-inventory.jpg" alt="Otiva inventory dashboard with stock alerts and cost charts" width={1470} height={779} className="h-auto w-full" />
+              <div className="flex items-start justify-between gap-4 p-6">
+                <div>
+                  <h3 className={`${display.className} text-2xl font-bold`}>Otiva</h3>
+                  <p className="mt-1 text-[#a3a9b2]">Hotel management platform: bookings with live pricing, front desk, inventory, procurement, P&amp;L and GST reports. Live in production.</p>
+                  <p className="mt-3 font-mono text-xs text-[#8b929c]">Next.js · TypeScript · MongoDB</p>
                 </div>
+                <ArrowUpRight className="h-6 w-6 shrink-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </div>
+            </a>
+            <div className="flex flex-col gap-6 md:col-span-2">
+              <a href="https://entryclub.in" target="_blank" rel="noopener noreferrer" className="group flex flex-1 flex-col justify-between rounded-2xl border border-white/10 bg-[#07080c] p-7 text-white">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-[0.3em] text-white/60">Live site</span>
+                  <ArrowUpRight className="h-6 w-6 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </div>
+                <div>
+                  <h3 className={`${display.className} mt-10 text-3xl font-bold tracking-wide`}>ENTRY CLUB</h3>
+                  <p className="mt-2 text-white/70">Premium nightlife and events platform, with its own user and admin back ends.</p>
+                </div>
+              </a>
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#16191e]">
+                <Image src="/work/otiva-calendar.jpg" alt="Otiva reservations calendar" width={1600} height={664} className="h-auto w-full" />
+                <p className="p-5 text-sm text-[#a3a9b2]">Otiva reservations calendar: check-ins, check-outs and room status at a glance.</p>
               </div>
             </div>
-
           </div>
+        </div>
+      </section>
 
-        </section>
+      {/* Pricing: same packages as our live catalog */}
+      <section id="pricing" className="border-y border-white/10 bg-[#121418] text-white">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8">
+          <h2 className={`${display.className} text-3xl font-bold tracking-tight md:text-5xl`}>What we build, and what it costs</h2>
+          <p className="mt-4 max-w-2xl text-white/70">Starting prices. A short call gives you an exact fixed quote.</p>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {packages.map((p) => (
+              <div key={p.name} className="flex flex-col rounded-2xl border border-white/12 bg-white/[0.04] p-7">
+                <h3 className="text-lg font-semibold">{p.name}</h3>
+                <p className={`${display.className} mt-4 text-5xl font-extrabold`}>{p.usd}</p>
+                <p className="mt-1 text-sm text-white/60">India: {p.inr} · {p.time}</p>
+                <ul className="mt-6 space-y-3 text-white/85">
+                  {p.points.map((x) => (
+                    <li key={x} className="flex gap-3"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#e2541c]" />{x}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        {/* Features Section - Dynamic */}
-        {features.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20  ">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                  Why Choose Zenbourg?
-                </h2>
-                <p className="text-lg sm:text-xl  max-w-2xl mx-auto px-4">
-                  We combine expertise, innovation, and dedication to deliver exceptional results for your business.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                {features.map((feature) => (
-                  <Card
-                    key={feature.id}
-                    className="text-center p-4 sm:p-6 hover:shadow-lg transition-shadow  "
-                  >
-                    <CardContent className="pt-4 sm:pt-6">
-                      <div className="flex justify-center mb-3 sm:mb-4">
-                        <FeatureIcon name={feature.icon_name} className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
-                      </div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 ">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{feature.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+      {/* How we work */}
+      <section className="mx-auto max-w-6xl px-5 py-20 md:px-8">
+        <h2 className={`${display.className} text-3xl font-bold tracking-tight md:text-5xl`}>How we work</h2>
+        <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+          {terms.map(([t, d]) => (
+            <div key={t} className="border-t-2 border-[#e2541c] pt-5">
+              <h3 className="text-xl font-semibold">{t}</h3>
+              <p className="mt-2 leading-relaxed text-[#a3a9b2]">{d}</p>
             </div>
-          </section>
-        )}
+          ))}
+        </div>
+      </section>
 
-        {/* Our Services Section - Dynamic */}
-        {homeServices.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20 bg-gray-50/50 dark:bg-slate-800/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  Our Services
-                </h2>
-                <p className="text-lg sm:text-xl text-gray-600  max-w-2xl mx-auto px-4">
-                  Choose from our comprehensive range of professional services designed to help your business grow and
-                  succeed.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-                {homeServices.map((service) => (
-                  <Card
-                    key={service.id}
-                    className={`relative hover:shadow-lg transition-shadow     ${service.is_popular ? "ring-2 ring-blue-500" : ""
-                      }`}
-                  >
-                    {service.is_popular && (
-                      <Badge className="absolute -top-2 left-4 bg-blue-500 text-xs sm:text-sm">
-                        Most Popular
-                      </Badge>
-                    )}
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 ">
-                        {service.name}
-                      </h3>
-                      {/* {service.price && (
-                        <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                          ${service.price.toLocaleString()}
-                        </div>
-                      )} */}
-                      <p className="text-sm sm:text-base text-gray-600 mb-4">{service.description}</p>
-                      {service.features && service.features.length > 0 && (
-                        <ul className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
-                          {service.features.map((featureItem, index) => (
-                            <li key={index} className="flex items-center space-x-2">
-                              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 flex-shrink-0" />
-                              <span className="text-xs sm:text-sm ">{featureItem}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700  text-sm sm:text-base" asChild>
-                        <Link href={`/services#${service.service_slug}`}>
-                          Book Now
-                          <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              <div className="text-center">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Link href="/services">
-                    View All Services
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Testimonials - Dynamic */}
-        {testimonials.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20 ">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                  What Our Clients Say
-                </h2>
-                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
-                  Don't just take our word for it - hear from our satisfied clients
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                {testimonials.map((testimonial) => (
-                  <Card
-                    key={testimonial.id}
-                    className="p-4 sm:p-6 "
-                  >
-                    <CardContent className="pt-4 sm:pt-6">
-                      <div className="flex mb-3 sm:mb-4">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 fill-current" />
-                        ))}
-                        {[...Array(5 - testimonial.rating)].map((_, i) => (
-                          <Star
-                            key={`empty-${i}`}
-                            className="h-4 w-4 sm:h-5 sm:w-5 fill-current"
-                          />
-                        ))}
-                      </div>
-                      <p className="text-sm sm:text-base mb-3 sm:mb-4">
-                        "{testimonial.text}"
-                      </p>
-                      <div>
-                        <p className="font-semibold text-sm sm:text-base  dark:text-white">
-                          {testimonial.name}
-                        </p>
-                        {testimonial.company && (
-                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{testimonial.company}</p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Our Work Section - Dynamic */}
-        {homeProjects.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20 bg-gray-50/50 dark:bg-slate-800/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                  Our Recent Work
-                </h2>
-                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
-                  Explore our successful projects across various industries and see the impact we've made
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-                {projects.map((project) => (
-                  <Card
-                    key={project.id}
-                    className="group hover:shadow-xl transition-all duration-300 overflow-hidden "
-                  >
-                    <div className="relative">
-                      <Image
-                        src={project.image_url || "/placeholder.svg?width=400&height=300&query=project+thumbnail"}
-                        alt={`${project.name} Homepage`}
-                        width={400}
-                        height={300}
-                        className="w-full h-36 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {project.live_url && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <Button asChild variant="secondary" size="sm">
-                            <Link href={project.live_url} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                              <span className="text-xs sm:text-sm">View Live Site</span>
-                            </Link>
-                          </Button>
-                        </div>
-                      )}
-                      {project.domain && (
-                        <Badge className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-blue-600 text-white text-xs">
-                          {project.domain}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900 dark:text-white">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-3">
-                        {project.description}
-                      </p>
-                      {project.metrics && (
-                        <p className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 mb-3 sm:mb-4">
-                          {/* {project.metrics} */}
-                        </p>
-                      )}
-                      <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                        {project.live_url && (
-                          <Button
-                            asChild
-                            size="sm"
-                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm"
-                          >
-                            <Link href={project.live_url} target="_blank" rel="noopener noreferrer">
-                              View Live
-                            </Link>
-                          </Button>
-                        )}
-                        <Button
-                          asChild
-                          variant="outline"
-                          size="sm"
-                          className="flex-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 text-xs sm:text-sm"
-                        >
-                          {/* Link to a dynamic case study page if project_slug is available */}
-                          {/* <Link href={project.live_url}>
-                            Case Study
-                          </Link> */}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              <div className="text-center">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Link href="/portfolio">
-                    View All Projects
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* CTA Section (remains static or can be made dynamic) */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-blue-600 dark:bg-blue-800 text-white transition-colors">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
-            <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
-              Let's discuss how we can help you achieve your goals with our premium services.
+      {/* Founder */}
+      <section className="border-t border-white/10">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-20 md:grid-cols-[320px_1fr] md:px-8">
+          <Image src="/work/mayank.jpg" alt="Mayank Bhayal, founder of Zenbourg" width={1000} height={1000} className="h-auto w-full max-w-[320px] rounded-2xl object-cover" />
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#8b929c]">Who you talk to</p>
+            <h2 className={`${display.className} mt-3 text-3xl font-bold tracking-tight md:text-4xl`}>Mayank Bhayal, founder</h2>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#a3a9b2]">
+              I built Otiva end to end and still run it. When you work with Zenbourg, you talk to the person writing your code,
+              not an account manager. One call, a fixed quote, and a working link to review every week.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-              <Button asChild size="lg" variant="secondary" className="text-base sm:text-lg px-6 sm:px-8 py-3">
-                <Link href="/book">Book Free Consultation</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="text-base sm:text-lg px-6 sm:px-8 py-3 border-white text-white hover:bg-white hover:text-blue-600"
-              >
-                <Link href="/contact">Contact Us</Link>
-              </Button>
-            </div>
           </div>
-        </section>
-      </div></>
+        </div>
+      </section>
+
+      {/* Final call to action */}
+      <section className="bg-[#e2541c] text-[#14161a]">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 py-16 md:flex-row md:items-center md:px-8">
+          <h2 className={`${display.className} max-w-2xl text-3xl font-extrabold tracking-tight md:text-5xl`}>Tell us what you need. Get a fixed quote in one call.</h2>
+          <div className="flex flex-wrap gap-3">
+            <a href={BOOK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-[#14161a] px-6 py-4 font-semibold text-white hover:bg-[#2a2d33]">
+              Book a call <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <Link href="/contact" className="inline-flex items-center rounded-lg border-2 border-[#14161a] px-6 py-4 font-semibold">Write to us</Link>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

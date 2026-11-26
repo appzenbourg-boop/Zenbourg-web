@@ -114,14 +114,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder & Co-Founder Section */}
+      {/* Founder Section */}
       <section className="py-20 bg-slate-900 text-gray-300 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Meet Our Founders</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Meet the Founder</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Leading Zenbourg with vision, innovation, and technical excellence from one of India's premier
-              institutions.
+              Zenbourg is founder-led: you talk to the person who writes your code.
             </p>
           </div>
 
@@ -130,7 +129,7 @@ export default function AboutPage() {
             {/* Founder */}
             <Card className="overflow-hidden max-w-sm bg-slate-800">
               <div className="aspect-square relative">
-                <Image src="/founder image.jpg" alt="Mayank Bhayal" fill className="object-cover" />
+                <Image src="/work/mayank.jpg" alt="Mayank Bhayal" fill className="object-cover" />
               </div>
               <CardContent className="p-6 text-center">
                 <h3 className="font-bold text-xl mb-2 text-white">Mayank Bhayal</h3>
@@ -149,30 +148,6 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            {/* Co-Founder */}
-            <Card className="overflow-hidden max-w-sm bg-slate-800">
-              <div className="aspect-square relative">
-                <Image src="/cofounder.jpg" alt="Co-Founder Name" fill className="object-cover" />
-              </div>
-              <CardContent className="p-6 text-center">
-                <h3 className="font-bold text-xl mb-2 text-white">Srajan Dwivedi</h3>
-                <p className="text-blue-400 font-semibold mb-2">COO & Co-Founder</p>
-                <p className="text-gray-400 mb-4">NIT Jaipur Alumni</p>
-                <p className="text-gray-400 text-sm mb-6">
-                  Driving innovation and building scalable solutions to transform businesses.
-
-
-                </p>
-                <div className="pt-8">
-                  <Link
-                    href="https://www.linkedin.com/in/srajan-dwivedi-3780a7264/"
-                    className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-2"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                    <span>Connect on LinkedIn</span>
-                  </Link></div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
