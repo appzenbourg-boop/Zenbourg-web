@@ -129,7 +129,7 @@ export default function AboutPage() {
             {/* Founder */}
             <Card className="overflow-hidden max-w-sm bg-slate-800">
               <div className="aspect-square relative">
-                <Image src="/work/mayank.jpg" alt="Mayank Bhayal" fill className="object-cover" />
+                <Image src="/work/mayank.jpg" alt="Mayank Bhayal" fill className="object-cover object-[center_30%]" />
               </div>
               <CardContent className="p-6 text-center">
                 <h3 className="font-bold text-xl mb-2 text-white">Mayank Bhayal</h3>
