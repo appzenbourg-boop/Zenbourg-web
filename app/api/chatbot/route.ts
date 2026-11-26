@@ -19,7 +19,7 @@ const CHATBOT_RESPONSES = {
     "To book a consultation, simply visit our booking page where you can select your preferred date and time. All consultations are free and typically last 30 minutes.",
   ],
   contact: [
-    "You can reach us at support@zenbourg.com or call +1 (555) 123-4567. We're available Monday-Friday, 9 AM-5 PM.",
+    "You can reach us at info.zenbourg@gmail.com or call +91 74470 94686. We're available Monday-Friday, 9 AM-5 PM.",
     "Feel free to contact us through our Contact page, email us directly, or book a consultation. We're always happy to discuss your project needs!",
   ],
   default: [

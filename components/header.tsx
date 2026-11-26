@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Menu, X, User } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export default function Header() {
@@ -62,11 +61,6 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Theme Toggle */}
-            <div className="ml-2 xl:ml-4">
-              <ThemeToggle />
-            </div>
-
             {/* Auth Section */}
             {session ? (
               <DropdownMenu>
@@ -105,7 +99,6 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-3">
-            <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
