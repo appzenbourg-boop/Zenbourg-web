@@ -60,6 +60,48 @@ function getResponseType(message: string): keyof typeof CHATBOT_RESPONSES {
   return "default"
 }
 
+// Facts the assistant may use. Keep in sync with the site (27 Nov 2026). Nothing outside this list is promised.
+const ZENBOURG_FACTS = `You are the website assistant for Zenbourg, a founder-led web development studio in Indore, India, run by Mayank Bhayal.
+What Zenbourg builds: business websites, websites with an admin panel, custom web apps (login, dashboards, payments), integrations, SEO and analytics setup, and an AI WhatsApp receptionist.
+Starting prices: business website from $150 (Rs 9,999 in India, about 5 days); website + admin panel from $350 (about 10 days); custom web app from $750 (about 20 days); AI WhatsApp receptionist Rs 15,000 setup + Rs 2,000 per month. Every project gets a fixed quote before work starts.
+Terms: 50% advance, the rest at launch, direct invoice (bank transfer or UPI in India, Wise or PayPal abroad). The client owns the code, domain and accounts.
+Proof: Zenbourg built and runs Otiva (otiva.in), a live hotel management platform (bookings, front desk, inventory, procurement, P&L and GST reports). Also built Entry Club (entryclub.in), a nightlife and events platform. Stack: Next.js, TypeScript, Node.js, MongoDB/PostgreSQL.
+Contact: info.zenbourg@gmail.com, +91 74470 94686, or book a free 20-minute call on the Book Consultation page.
+Not offered: managing paid ad budgets, guaranteed search rankings, buying followers or backlinks.
+Rules: answer in the visitor's language (English or Hinglish), in at most 4 short sentences. Use only the facts above. Never invent clients, numbers, reviews, timelines or discounts. If you do not know, say so and suggest the free call. Do not ask for passwords or payment details.`
+
+async function askGemini(message: string): Promise<string | null> {
+  const key = process.env.GEMINI_API_KEY
+  if (!key) return null
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash"
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), 8000)
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: ZENBOURG_FACTS }] },
+        contents: [{ role: "user", parts: [{ text: message }] }],
+        generationConfig: { maxOutputTokens: 300, temperature: 0.4 },
+      }),
+    })
+    if (!res.ok) {
+      console.error("Gemini error", res.status, (await res.text()).slice(0, 300))
+      return null
+    }
+    const data = await res.json()
+    const text = (data?.candidates?.[0]?.content?.parts || []).map((p: { text?: string }) => p.text || "").join("").trim()
+    return text || null
+  } catch (e) {
+    console.error("Gemini request failed", e)
+    return null
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { message } = await request.json()
@@ -67,35 +109,15 @@ export async function POST(request: NextRequest) {
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Message is required" }, { status: 400 })
     }
+    const question = message.slice(0, 1000)
 
-    // Determine response type based on message content
-    const responseType = getResponseType(message)
-    const responses = CHATBOT_RESPONSES[responseType]
+    // Real AI answer when GEMINI_API_KEY is set; otherwise (or on any error) the checked canned answers below.
+    const ai = await askGemini(question)
+    if (ai) return NextResponse.json({ response: ai, source: "ai" })
+
+    const responses = CHATBOT_RESPONSES[getResponseType(question)]
     const response = responses[Math.floor(Math.random() * responses.length)]
-
-    // In production, you would integrate with OpenAI or similar AI service:
-    // const completion = await openai.chat.completions.create({
-    //   model: "gpt-3.5-turbo",
-    //   messages: [
-    //     {
-    //       role: "system",
-    //       content: "You are a helpful assistant for Zenbourg, a business services company..."
-    //     },
-    //     {
-    //       role: "user",
-    //       content: message
-    //     }
-    //   ],
-    // });
-
-    // Log chat for analytics (in production, save to database)
-    console.log("Chat log:", {
-      message,
-      response,
-      timestamp: new Date().toISOString(),
-    })
-
-    return NextResponse.json({ response })
+    return NextResponse.json({ response, source: "fallback" })
   } catch (error) {
     console.error("Chatbot error:", error)
     return NextResponse.json({ error: "Failed to process message" }, { status: 500 })
