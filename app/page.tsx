@@ -104,7 +104,8 @@ const projects = [
 
 
 export const metadata = {
-  title: 'My App',
+  title: 'Zenbourg | Custom websites and web apps, built fast',
+  description: 'Next.js websites, admin panels and custom web apps from Indore, India. We built Otiva, a live hotel management platform. Fixed price, direct invoice, source code yours.',
   icons: {
     icon: './icons/x-logo.png',
   },
