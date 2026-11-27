@@ -305,7 +305,7 @@ export default function ChatBot() {
       }, 3000)
     } catch (error) {
       addMessage(
-        "I apologize, but there was a technical issue. Please try contacting us directly at support@zenbourg.com or +91 7772828027",
+        "I apologize, but there was a technical issue. Please try contacting us directly at info.zenbourg@gmail.com or +91 74470 94686",
         false,
       )
     } finally {

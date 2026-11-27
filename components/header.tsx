@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Menu, X, User } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export default function Header() {
@@ -62,11 +61,6 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Theme Toggle */}
-            <div className="ml-2 xl:ml-4">
-              <ThemeToggle />
-            </div>
-
             {/* Auth Section */}
             {session ? (
               <DropdownMenu>
@@ -97,7 +91,7 @@ export default function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="ml-2 bg-blue-600 hover:bg-blue-700 text-white btn-animate ripple-effect">
+              <Button asChild className="ml-2 bg-[#e2541c] hover:bg-[#f06a33] text-white btn-animate ripple-effect">
                 <Link href="/signin">Sign In</Link>
               </Button>
             )}
@@ -105,7 +99,6 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-3">
-            <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
@@ -154,7 +147,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href="/signin"
-                    className="block text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-md text-base font-medium transition-colors"
+                    className="block text-center bg-[#e2541c] hover:bg-[#f06a33] text-white px-4 py-3 rounded-md text-base font-medium transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Sign In

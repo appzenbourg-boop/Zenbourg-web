@@ -2,243 +2,78 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { submitContactForm } from "@/lib/contact-actions"
+import { Page, Hero, PrimaryLink, BOOK_URL, ACCENT, display } from "@/components/zb"
+
+const field = "w-full rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-white placeholder:text-[#6f7680] focus:border-white/50 focus:outline-none"
 
 export default function ContactPage() {
   const { toast } = useToast()
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
-
+  const [formData, setFormData] = useState({ fullName: "", email: "", subject: "", message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
-  }
+  const set = (k: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData((p) => ({ ...p, [k]: e.target.value }))
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     try {
       const result = await submitContactForm(formData)
-
-      if (result.success) {
-        toast({
-          title: "✅ Message Sent!",
-          description:
-            "We've received your message and sent a confirmation email. Our team will get back to you shortly.",
-        })
-
-        // Reset form
-        setFormData({
-          fullName: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      } else {
-        throw new Error(result.error || "Failed to send message")
-      }
+      if (!result.success) throw new Error(result.error || "Failed to send message")
+      toast({ title: "Message sent", description: "We have your message and sent you a confirmation email. We reply within one working day." })
+      setFormData({ fullName: "", email: "", subject: "", message: "" })
     } catch (error: any) {
-      toast({
-        title: "❌ Submission Failed",
-        description:
-          error?.message || "There was an error sending your message. Please try again.",
-        variant: "destructive",
-      })
+      toast({ title: "Message not sent", description: error?.message || "Please try again, or email info.zenbourg@gmail.com.", variant: "destructive" })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Contact Us</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions or want to discuss your project? We're here to help. Reach out to our
-            team using any of the methods below.
-          </p>
+    <Page>
+      <Hero eyebrow="Contact" title="Tell us what you need." accent="We reply within a day."
+        lead="Write a few lines about your project, or skip the form and book a 20-minute call.">
+        <PrimaryLink href={BOOK_URL} external>Book a 20-minute call</PrimaryLink>
+      </Hero>
+
+      <section className="border-t border-white/10">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 md:grid-cols-[1fr_320px] md:px-8">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="block"><span className="mb-2 block text-sm font-medium text-[#c9cdd3]">Your name</span>
+                <input id="fullName" required value={formData.fullName} onChange={set("fullName")} className={field} placeholder="Full name" /></label>
+              <label className="block"><span className="mb-2 block text-sm font-medium text-[#c9cdd3]">Email</span>
+                <input id="email" type="email" required value={formData.email} onChange={set("email")} className={field} placeholder="you@company.com" /></label>
+            </div>
+            <label className="block"><span className="mb-2 block text-sm font-medium text-[#c9cdd3]">Subject</span>
+              <input id="subject" required value={formData.subject} onChange={set("subject")} className={field} placeholder="New website, web app, fix an existing site..." /></label>
+            <label className="block"><span className="mb-2 block text-sm font-medium text-[#c9cdd3]">Message</span>
+              <textarea id="message" required rows={6} value={formData.message} onChange={set("message")} className={field} placeholder="What do you need, and by when?" /></label>
+            <button type="submit" disabled={isSubmitting}
+              className="inline-flex items-center gap-2 rounded-lg px-6 py-4 font-semibold text-[#0d0f12] transition hover:brightness-110 disabled:opacity-60"
+              style={{ background: ACCENT }}>
+              <Send className="h-4 w-4" /> {isSubmitting ? "Sending..." : "Send message"}
+            </button>
+          </form>
+
+          <aside className="space-y-8">
+            <div>
+              <p className="text-sm uppercase tracking-[0.18em] text-[#8b929c]">Email</p>
+              <p className={`${display.className} mt-2 select-all text-xl font-bold`}>info.zenbourg@gmail.com</p>
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.18em] text-[#8b929c]">Based in</p>
+              <p className="mt-2 text-lg font-semibold">Indore, India · working worldwide</p>
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.18em] text-[#8b929c]">Payment</p>
+              <p className="mt-2 leading-relaxed text-[#a3a9b2]">Direct invoice. Bank transfer or UPI in India, Wise or PayPal abroad.</p>
+            </div>
+          </aside>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Contact Information */}
-          <div className="lg:col-span-1 space-y-6">
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-blue-100 rounded-full">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-lg mb-1">Email Us</h3>
-                    <p className="text-gray-600 mb-1">For general inquiries:</p>
-                    <a href="mailto:info@zenbourg.com" className="text-blue-600 hover:underline">
-                      info@zenbourg.com
-                    </a>
-                    <p className="text-gray-600 mt-2 mb-1">For support:</p>
-                    <a
-                      href="mailto:support@zenbourg.com"
-                      className="text-blue-600 hover:underline"
-                    >
-                      info.zenbourg@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-green-100 rounded-full">
-                    <Phone className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-lg mb-1">Call Us</h3>
-                    <p className="text-gray-600 mb-1">Phone:</p>
-                    <p className="text-lg font-medium">+91 7772828027</p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Available Monday-Friday, 9 AM - 5 PM EST
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-purple-100 rounded-full">
-                    <MapPin className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-lg mb-1">Visit Us</h3>
-                    <p className="text-gray-600 mb-1">Headquarters:</p>
-                    <p className="text-gray-800">
-                      105, Ab Rd, Sector C, Slice 5
-                      <br />
-                      Slice 5, Part 2, Shalimar Township
-                      <br />
-                      Indore, Madhya Pradesh 452010, India
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Send Us a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="fullName">Full Name *</Label>
-                      <Input
-                        id="fullName"
-                        value={formData.fullName}
-                        onChange={(e) => handleInputChange("fullName", e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="subject">Subject *</Label>
-                    <Input
-                      id="subject"
-                      value={formData.subject}
-                      onChange={(e) => handleInputChange("subject", e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      value={formData.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                      rows={6}
-                      required
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    disabled={
-                      isSubmitting ||
-                      !formData.fullName ||
-                      !formData.email ||
-                      !formData.subject ||
-                      !formData.message
-                    }
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center">
-                        <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
-                        Sending...
-                      </span>
-                    ) : (
-                      <span className="flex items-center space-x-2">
-                        <Send className="w-5 h-5 text-black" />
-                        <span className="text-black font-bold">Send Message</span>
-                      </span>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Google Map */}
-        <div className="rounded-lg overflow-hidden h-96 shadow-md">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d919.7618260194466!2d75.89965156957011!3d22.763625698709752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39631d4d4634b7cf%3A0x6c29e89b0051fbb1!2s105%2C%20AB%20Rd%2C%20Part%20II%2C%20Shalimar%20Township%2C%20Indore%2C%20Madhya%20Pradesh%20452010!5e0!3m2!1sen!2sin!4v1756293242357!5m2!1sen!2sin"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-      </div>
-    </div>
+      </section>
+    </Page>
   )
 }

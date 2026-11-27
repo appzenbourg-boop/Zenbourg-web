@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
               <p>If you have any questions about this Privacy Policy, please contact us at:</p>
               <div className="mt-4">
                 <p>Email: info.zenbourg@gmail.com</p>
-                <p>Phone: +91 7772828027</p>
+                <p>Phone: +91 74470 94686</p>
                 <p> Adress: 105, Ab Rd, Sector C, Slice 5, Part 2, </p><p>Shalimar Township, Indore, Madhya Pradesh 452010, India</p>
               </div>
             </CardContent>

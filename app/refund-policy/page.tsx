@@ -59,7 +59,7 @@ export default function RefundPolicy() {
             <CardContent className="space-y-4">
               <p>To request a refund:</p>
               <ol className="list-decimal pl-6 space-y-2">
-                <li>Contact our support team at support@zenbourg.com</li>
+                <li>Contact our support team at info.zenbourg@gmail.com</li>
                 <li>Provide your order number and reason for refund</li>
                 <li>Allow 3-5 business days for review</li>
                 <li>Refunds will be processed to the original payment method</li>
@@ -88,7 +88,7 @@ export default function RefundPolicy() {
               <p>For refund requests or questions about this policy:</p>
               <div className="mt-4">
                 <p>Email: refunds@zenbourg.com</p>
-                <p>Phone: +1 (555) 123-4567</p>
+                <p>Phone: +91 74470 94686</p>
                 <p>Business Hours: Monday-Friday, 9 AM - 6 PM EST</p>
               </div>
             </CardContent>

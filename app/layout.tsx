@@ -32,6 +32,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
+          forcedTheme="dark"
           disableTransitionOnChange={false}
           storageKey="zenbourg-theme"
         >

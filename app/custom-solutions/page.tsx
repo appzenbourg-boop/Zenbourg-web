@@ -1,72 +1,36 @@
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
+import type { Metadata } from "next"
+import { Page, Hero, Section, Grid, Card, CtaBand, PrimaryLink, GhostLink, BOOK_URL } from "@/components/zb"
 
-const CustomSolutionsPage = () => {
-  return (
-    <div className="container mx-auto py-10">
-      {/* Hero Section */}
-      <section className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4">Custom Solutions Tailored for You</h1>
-        <p className="text-gray-600 mb-8">
-          We understand that every business is unique. That's why we offer custom solutions designed to meet your
-          specific needs and challenges.
-        </p>
-        <Link href="/custom-quote">
-          <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Request Custom Quote <ArrowRight className="ml-2" />
-          </Button>
-        </Link>
-      </section>
-
-      {/* Services Overview */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {/* Service Card 1 */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-2">Software Development</h2>
-          <p className="text-gray-700">
-            Custom software solutions to streamline your operations and improve efficiency.
-          </p>
-        </div>
-
-        {/* Service Card 2 */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-2">Data Analytics</h2>
-          <p className="text-gray-700">Unlock the power of your data with our comprehensive data analytics services.</p>
-        </div>
-
-        {/* Service Card 3 */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-2">Cloud Solutions</h2>
-          <p className="text-gray-700">
-            Migrate to the cloud and optimize your infrastructure for scalability and cost savings.
-          </p>
-        </div>
-      </section>
-
-      {/* Case Studies */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-4">Case Studies</h2>
-        <p className="text-gray-600 mb-8">
-          See how we've helped other businesses achieve their goals with our custom solutions.
-        </p>
-        {/* Add case study components here */}
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="text-center">
-        <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p className="text-gray-600 mb-8">
-          Contact us today to discuss your specific needs and how we can help you achieve your business objectives.
-        </p>
-        <Link href="/custom-quote">
-          <Button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            Request Custom Quote <ArrowRight className="ml-2" />
-          </Button>
-        </Link>
-      </section>
-    </div>
-  )
+export const metadata: Metadata = {
+  title: "Custom Software and Automation | Zenbourg",
+  description: "Dashboards, internal tools, integrations and AI assistants built around how your business already works.",
 }
 
-export default CustomSolutionsPage
+export default function CustomSolutionsPage() {
+  return (
+    <Page>
+      <Hero eyebrow="Custom software" title="Software shaped around" accent="how you already work."
+        lead="When a ready-made tool almost fits, we build the missing piece: an internal dashboard, a connection between two systems, or an assistant that answers customers for you.">
+        <PrimaryLink href={BOOK_URL} external>Book a 20-minute call</PrimaryLink>
+        <GhostLink href="/custom-quote">Ask for a custom quote</GhostLink>
+      </Hero>
+
+      <Section title="What we build" band>
+        <Grid>
+          <Card title="Internal dashboards">Sales, stock, bookings or finance in one screen, with alerts when something needs attention.</Card>
+          <Card title="Integrations">Connect your website, payments, sheets, email and WhatsApp so data is typed in once.</Card>
+          <Card title="AI WhatsApp receptionist">Answers common customer questions, collects details and hands over to your team. Setup ₹15,000, then ₹2,000 a month.</Card>
+          <Card title="Booking and order systems">Availability, pricing and confirmations that run without phone tag.</Card>
+          <Card title="Admin panels">Let your team update products, rooms, menus or listings without a developer.</Card>
+          <Card title="Rescue and cleanup">An existing app that is slow or half finished: we review it and quote a fixed price to make it solid.</Card>
+        </Grid>
+      </Section>
+
+      <Section title="Built on the same engine as Otiva" lead="Our hotel platform, Otiva, runs bookings, procurement, inventory and finance for hotels. The patterns that keep it reliable go into every custom build.">
+        <GhostLink href="/portfolio">See our work</GhostLink>
+      </Section>
+
+      <CtaBand />
+    </Page>
+  )
+}
